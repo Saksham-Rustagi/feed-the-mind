@@ -1,5 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
-import LogoMark from "./LogoMark";
+import logoIcon from "@/assets/logo-icon.png";
 
 type LogoProps = {
   variant?: "color" | "inverted";
@@ -7,6 +8,10 @@ type LogoProps = {
   layout?: "row" | "stacked";
   showTagline?: boolean;
   className?: string;
+  /** Mark as LCP-relevant for above-the-fold placements (header, hero) */
+  priority?: boolean;
+  /** Icon-only below `sm` — for the header, where it shares a row with nav controls */
+  hideTextOnMobile?: boolean;
 };
 
 export default function Logo({
@@ -14,6 +19,8 @@ export default function Logo({
   layout = "row",
   showTagline = false,
   className,
+  priority = false,
+  hideTextOnMobile = false,
 }: LogoProps) {
   const textColor = variant === "inverted" ? "text-white" : "text-brand-sea";
   const taglineColor = variant === "inverted" ? "text-brand-powder" : "text-brand-cornflower";
@@ -22,19 +29,25 @@ export default function Logo({
   return (
     <Link
       href="/"
-      className={`group inline-flex items-center gap-3 ${
-        layout === "stacked" ? "flex-col text-center" : "flex-row"
+      className={`group inline-flex items-center ${
+        layout === "stacked" ? "flex-col gap-3 text-center" : "flex-row gap-2 sm:gap-3"
       } ${className ?? ""}`}
       aria-label="Feed the Mind — home"
     >
-      <LogoMark
-        variant={variant}
-        className={layout === "stacked" ? "h-24 w-auto sm:h-32" : "h-10 w-auto sm:h-11"}
+      <Image
+        src={logoIcon}
+        alt=""
+        priority={priority}
+        className={`w-auto shrink-0 object-contain ${layout === "stacked" ? "h-24 sm:h-32" : "h-8 sm:h-11"}`}
       />
-      <span className={layout === "stacked" ? "flex flex-col items-center" : "flex flex-col justify-center"}>
+      <span
+        className={`${layout === "stacked" ? "flex flex-col items-center" : "flex-col justify-center"} ${
+          hideTextOnMobile ? "hidden min-[375px]:flex" : "flex"
+        }`}
+      >
         <span
-          className={`font-extrabold tracking-tight leading-none ${textColor} ${
-            layout === "stacked" ? "text-3xl sm:text-4xl" : "text-lg sm:text-xl"
+          className={`whitespace-nowrap font-extrabold tracking-tight leading-none ${textColor} ${
+            layout === "stacked" ? "text-3xl sm:text-4xl" : "text-base sm:text-xl"
           }`}
         >
           FEED{" "}

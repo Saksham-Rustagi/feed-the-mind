@@ -82,7 +82,7 @@ export default function HomePage() {
       {/* Hero */}
       <section className="relative overflow-hidden bg-gradient-to-b from-brand-powder/40 via-white to-white">
         <div className="mx-auto flex max-w-7xl flex-col items-center gap-10 px-4 py-16 text-center sm:px-6 sm:py-24 lg:px-8">
-          <Logo layout="stacked" showTagline className="items-center" />
+          <Logo layout="stacked" showTagline priority className="items-center" />
           <p className="max-w-2xl text-lg leading-relaxed text-brand-sea/80 sm:text-xl">
             Feed the Mind provides accessible mental health resources, emotional
             wellness support, and nutritious food to individuals and families
