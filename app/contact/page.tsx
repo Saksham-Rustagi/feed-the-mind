@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import PageHero from "@/components/ui/PageHero";
 import Section from "@/components/ui/Section";
 import Card from "@/components/ui/Card";
+import { StaggerGroup, StaggerItem } from "@/components/motion/Stagger";
 
 const CONTACT_DETAILS = [
   {
@@ -45,7 +46,7 @@ export default function ContactPage() {
       />
 
       <Section tone="white">
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
+        <StaggerGroup className="grid grid-cols-1 gap-6 sm:grid-cols-3">
           {CONTACT_DETAILS.map((detail) => {
             const content = (
               <>
@@ -61,18 +62,20 @@ export default function ContactPage() {
               </>
             );
             return (
-              <Card key={detail.label} className="flex flex-col items-center text-center">
-                {detail.href ? (
-                  <a href={detail.href} className="flex flex-col items-center">
-                    {content}
-                  </a>
-                ) : (
-                  content
-                )}
-              </Card>
+              <StaggerItem key={detail.label}>
+                <Card className="flex flex-col items-center text-center">
+                  {detail.href ? (
+                    <a href={detail.href} className="flex flex-col items-center">
+                      {content}
+                    </a>
+                  ) : (
+                    content
+                  )}
+                </Card>
+              </StaggerItem>
             );
           })}
-        </div>
+        </StaggerGroup>
 
         <div className="mt-12 text-center">
           <h2 className="text-sm font-semibold uppercase tracking-wide text-brand-sea/60">

@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { motion } from "framer-motion";
 import type { ReactNode } from "react";
 
 type ButtonProps = {
@@ -16,6 +19,15 @@ const VARIANT_CLASSES: Record<NonNullable<ButtonProps["variant"]>, string> = {
   inverted: "bg-white text-brand-sea hover:bg-brand-powder",
 };
 
+const MotionLink = motion.create(Link);
+const MotionAnchor = motion.a;
+
+const tapHover = {
+  whileHover: { scale: 1.04 },
+  whileTap: { scale: 0.97 },
+  transition: { duration: 0.15, ease: "easeOut" },
+} as const;
+
 export default function Button({
   href,
   children,
@@ -27,15 +39,15 @@ export default function Button({
 
   if (external) {
     return (
-      <a href={href} target="_blank" rel="noopener noreferrer" className={classes}>
+      <MotionAnchor href={href} target="_blank" rel="noopener noreferrer" className={classes} {...tapHover}>
         {children}
-      </a>
+      </MotionAnchor>
     );
   }
 
   return (
-    <Link href={href} className={classes}>
+    <MotionLink href={href} className={classes} {...tapHover}>
       {children}
-    </Link>
+    </MotionLink>
   );
 }

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Button from "@/components/ui/Button";
 import Section from "@/components/ui/Section";
 import PageHero from "@/components/ui/PageHero";
+import { StaggerGroup, StaggerItem } from "@/components/motion/Stagger";
 
 export const metadata: Metadata = {
   title: "Our Mission",
@@ -29,26 +30,26 @@ export default function OurMissionPage() {
             feels natural and safe.
           </p>
 
-          <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-3">
-            <div className="rounded-2xl border border-brand-lake/40 bg-brand-powder/20 p-6">
+          <StaggerGroup className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-3">
+            <StaggerItem className="rounded-2xl border border-brand-lake/40 bg-brand-powder/20 p-6">
               <h3 className="text-lg font-semibold text-brand-sea">Nourish</h3>
               <p className="mt-2 text-sm leading-relaxed text-brand-sea/70">
                 Reliable access to nutritious food for individuals and families.
               </p>
-            </div>
-            <div className="rounded-2xl border border-brand-lake/40 bg-brand-powder/20 p-6">
+            </StaggerItem>
+            <StaggerItem className="rounded-2xl border border-brand-lake/40 bg-brand-powder/20 p-6">
               <h3 className="text-lg font-semibold text-brand-sea">Connect</h3>
               <p className="mt-2 text-sm leading-relaxed text-brand-sea/70">
                 Bringing people together with community and professional support.
               </p>
-            </div>
-            <div className="rounded-2xl border border-brand-lake/40 bg-brand-powder/20 p-6">
+            </StaggerItem>
+            <StaggerItem className="rounded-2xl border border-brand-lake/40 bg-brand-powder/20 p-6">
               <h3 className="text-lg font-semibold text-brand-sea">Grow</h3>
               <p className="mt-2 text-sm leading-relaxed text-brand-sea/70">
                 Building healthier, more supportive communities together.
               </p>
-            </div>
-          </div>
+            </StaggerItem>
+          </StaggerGroup>
 
           <div className="mt-12 flex flex-col gap-3 sm:flex-row">
             <Button href="/what-we-do" variant="primary">

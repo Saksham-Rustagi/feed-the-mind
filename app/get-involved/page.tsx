@@ -5,6 +5,7 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import PlaceholderNotice from "@/components/ui/PlaceholderNotice";
+import { StaggerGroup, StaggerItem } from "@/components/motion/Stagger";
 
 const WAYS_TO_HELP = [
   {
@@ -66,20 +67,22 @@ export default function GetInvolvedPage() {
       </PageHero>
 
       <Section tone="white">
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+        <StaggerGroup className="grid grid-cols-1 gap-6 lg:grid-cols-3">
           {WAYS_TO_HELP.map((way) => (
-            <Card key={way.title} className="flex flex-col">
-              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-cornflower/10 text-brand-cornflower">
-                <Icon name={way.icon} />
-              </div>
-              <h3 className="mt-5 text-xl font-semibold text-brand-sea">{way.title}</h3>
-              <p className="mt-2 flex-1 text-sm leading-relaxed text-brand-sea/70">{way.description}</p>
-              <Button href={way.href} variant="outline" className="mt-6 self-start">
-                {way.cta}
-              </Button>
-            </Card>
+            <StaggerItem key={way.title}>
+              <Card className="flex h-full flex-col">
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-cornflower/10 text-brand-cornflower">
+                  <Icon name={way.icon} />
+                </div>
+                <h3 className="mt-5 text-xl font-semibold text-brand-sea">{way.title}</h3>
+                <p className="mt-2 flex-1 text-sm leading-relaxed text-brand-sea/70">{way.description}</p>
+                <Button href={way.href} variant="outline" className="mt-6 self-start">
+                  {way.cta}
+                </Button>
+              </Card>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerGroup>
       </Section>
 
       <Section tone="powder">

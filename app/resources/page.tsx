@@ -4,6 +4,7 @@ import Section from "@/components/ui/Section";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Card from "@/components/ui/Card";
 import PlaceholderNotice from "@/components/ui/PlaceholderNotice";
+import { StaggerGroup, StaggerItem } from "@/components/motion/Stagger";
 
 const FOOD_RESOURCES = [
   { title: "Local Food Pantry Directory", type: "Guide" },
@@ -27,9 +28,9 @@ const TYPE_ICON: Record<string, string> = {
 
 function ResourceList({ items }: { items: { title: string; type: string }[] }) {
   return (
-    <ul className="space-y-3">
+    <StaggerGroup as="ul" className="space-y-3">
       {items.map((item) => (
-        <li key={item.title}>
+        <StaggerItem as="li" key={item.title}>
           <a
             href="#"
             className="flex items-center gap-4 rounded-xl border border-brand-lake/40 bg-white p-4 transition-colors hover:border-brand-cornflower hover:bg-brand-powder/10"
@@ -47,9 +48,9 @@ function ResourceList({ items }: { items: { title: string; type: string }[] }) {
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 6l6 6-6 6" />
             </svg>
           </a>
-        </li>
+        </StaggerItem>
       ))}
-    </ul>
+    </StaggerGroup>
   );
 }
 

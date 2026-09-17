@@ -1,3 +1,6 @@
+"use client";
+
+import { motion } from "framer-motion";
 import type { ReactNode } from "react";
 
 type SectionProps = {
@@ -16,7 +19,15 @@ const TONE_CLASSES: Record<NonNullable<SectionProps["tone"]>, string> = {
 export default function Section({ children, className, tone = "white", id }: SectionProps) {
   return (
     <section id={id} className={`${TONE_CLASSES[tone]} ${className ?? ""}`}>
-      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">{children}</div>
+      <motion.div
+        initial={{ opacity: 0, y: 28 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8"
+      >
+        {children}
+      </motion.div>
     </section>
   );
 }

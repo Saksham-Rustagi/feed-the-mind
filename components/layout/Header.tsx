@@ -3,8 +3,24 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import Logo from "@/components/logo/Logo";
 import { NAV_ITEMS, DONATE_ITEM } from "@/lib/nav";
+
+const panelVariants = {
+  hidden: { height: 0, opacity: 0 },
+  show: {
+    height: "auto",
+    opacity: 1,
+    transition: { duration: 0.25, ease: "easeOut", when: "beforeChildren", staggerChildren: 0.04 },
+  },
+  exit: { height: 0, opacity: 0, transition: { duration: 0.2, ease: "easeIn" } },
+} as const;
+
+const linkVariants = {
+  hidden: { opacity: 0, x: -8 },
+  show: { opacity: 1, x: 0 },
+} as const;
 
 export default function Header() {
   const pathname = usePathname();
@@ -69,44 +85,70 @@ export default function Header() {
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? "Close menu" : "Open menu"}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-brand-lake/60 text-brand-sea"
+            className="relative inline-flex h-10 w-10 items-center justify-center rounded-full border border-brand-lake/60 text-brand-sea"
           >
-            {open ? (
-              <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
-                <path strokeLinecap="round" d="M6 6l12 12M18 6L6 18" />
-              </svg>
-            ) : (
-              <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
-                <path strokeLinecap="round" d="M4 7h16M4 12h16M4 17h16" />
-              </svg>
-            )}
+            <motion.svg
+              viewBox="0 0 24 24"
+              className="h-5 w-5"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              initial={false}
+              animate={open ? "open" : "closed"}
+            >
+              <motion.path
+                strokeLinecap="round"
+                variants={{ closed: { d: "M4 7h16M4 12h16M4 17h16", opacity: 1 }, open: { d: "M6 12h12", opacity: 0 } }}
+                transition={{ duration: 0.2 }}
+              />
+              <motion.path
+                strokeLinecap="round"
+                variants={{ closed: { d: "M6 6l0 0M18 6l0 0", opacity: 0 }, open: { d: "M6 6l12 12", opacity: 1 } }}
+                transition={{ duration: 0.2 }}
+              />
+              <motion.path
+                strokeLinecap="round"
+                variants={{ closed: { d: "M6 18l0 0M18 18l0 0", opacity: 0 }, open: { d: "M18 6l-12 12", opacity: 1 } }}
+                transition={{ duration: 0.2 }}
+              />
+            </motion.svg>
           </button>
         </div>
       </div>
 
       {/* Mobile menu panel */}
-      <div
-        id="mobile-menu"
-        className={`lg:hidden ${open ? "block" : "hidden"} border-t border-brand-lake/40 bg-white`}
-      >
-        <nav aria-label="Primary mobile" className="mx-auto flex max-w-7xl flex-col gap-1 px-4 py-3 sm:px-6">
-          {NAV_ITEMS.map((item) => {
-            const active = pathname === item.href;
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                aria-current={active ? "page" : undefined}
-                className={`rounded-lg px-3 py-2.5 text-base font-medium ${
-                  active ? "bg-brand-powder/40 text-brand-sea" : "text-brand-sea/80"
-                }`}
-              >
-                {item.label}
-              </Link>
-            );
-          })}
-        </nav>
-      </div>
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            id="mobile-menu"
+            key="mobile-menu"
+            initial="hidden"
+            animate="show"
+            exit="exit"
+            variants={panelVariants}
+            className="overflow-hidden border-t border-brand-lake/40 bg-white lg:hidden"
+          >
+            <nav aria-label="Primary mobile" className="mx-auto flex max-w-7xl flex-col gap-1 px-4 py-3 sm:px-6">
+              {NAV_ITEMS.map((item) => {
+                const active = pathname === item.href;
+                return (
+                  <motion.div key={item.href} variants={linkVariants}>
+                    <Link
+                      href={item.href}
+                      aria-current={active ? "page" : undefined}
+                      className={`block rounded-lg px-3 py-2.5 text-base font-medium ${
+                        active ? "bg-brand-powder/40 text-brand-sea" : "text-brand-sea/80"
+                      }`}
+                    >
+                      {item.label}
+                    </Link>
+                  </motion.div>
+                );
+              })}
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

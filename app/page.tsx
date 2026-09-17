@@ -1,9 +1,10 @@
 import Link from "next/link";
-import Logo from "@/components/logo/Logo";
 import Button from "@/components/ui/Button";
 import Section from "@/components/ui/Section";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Card from "@/components/ui/Card";
+import { StaggerGroup, StaggerItem } from "@/components/motion/Stagger";
+import HomeHero from "@/components/home/HomeHero";
 
 const EXPLORE_LINKS = [
   {
@@ -60,7 +61,7 @@ const MENTAL_HEALTH_ACTIVITIES = [
 
 function CheckItem({ children }: { children: React.ReactNode }) {
   return (
-    <li className="flex items-start gap-3">
+    <StaggerItem as="li" className="flex items-start gap-3">
       <svg
         viewBox="0 0 24 24"
         className="mt-0.5 h-5 w-5 shrink-0 text-brand-cornflower"
@@ -72,33 +73,14 @@ function CheckItem({ children }: { children: React.ReactNode }) {
         <path strokeLinecap="round" strokeLinejoin="round" d="M8 12.5l2.5 2.5L16 9" />
       </svg>
       <span className="text-brand-sea/85">{children}</span>
-    </li>
+    </StaggerItem>
   );
 }
 
 export default function HomePage() {
   return (
     <>
-      {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-brand-powder/40 via-white to-white">
-        <div className="mx-auto flex max-w-7xl flex-col items-center gap-10 px-4 py-16 text-center sm:px-6 sm:py-24 lg:px-8">
-          <Logo layout="stacked" showTagline priority className="items-center" />
-          <p className="max-w-2xl text-lg leading-relaxed text-brand-sea/80 sm:text-xl">
-            Feed the Mind provides accessible mental health resources, emotional
-            wellness support, and nutritious food to individuals and families
-            experiencing hardship — because a full plate and a supported mind
-            both matter.
-          </p>
-          <div className="flex flex-col gap-3 sm:flex-row">
-            <Button href="/get-involved" variant="primary">
-              Get Involved
-            </Button>
-            <Button href="/donate" variant="outline">
-              Donate
-            </Button>
-          </div>
-        </div>
-      </section>
+      <HomeHero />
 
       {/* Overview + shortcuts */}
       <Section tone="white">
@@ -107,24 +89,26 @@ export default function HomePage() {
           title="One organization, two essential kinds of nourishment"
           description="Feed the Mind connects communities to reliable food resources and accessible mental health support — because neither should be out of reach. Explore what we do, page by page."
         />
-        <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <StaggerGroup className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {EXPLORE_LINKS.map((link) => (
-            <Link key={link.href} href={link.href} className="group">
-              <Card className="flex h-full flex-col justify-between group-hover:border-brand-cornflower">
-                <div>
-                  <h3 className="text-lg font-semibold text-brand-sea">{link.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-brand-sea/70">{link.description}</p>
-                </div>
-                <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-brand-cornflower">
-                  Learn more
-                  <svg viewBox="0 0 24 24" className="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M13 6l6 6-6 6" />
-                  </svg>
-                </span>
-              </Card>
-            </Link>
+            <StaggerItem key={link.href}>
+              <Link href={link.href} className="group block h-full">
+                <Card className="flex h-full flex-col justify-between group-hover:border-brand-cornflower">
+                  <div>
+                    <h3 className="text-lg font-semibold text-brand-sea">{link.title}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-brand-sea/70">{link.description}</p>
+                  </div>
+                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-brand-cornflower">
+                    Learn more
+                    <svg viewBox="0 0 24 24" className="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M13 6l6 6-6 6" />
+                    </svg>
+                  </span>
+                </Card>
+              </Link>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerGroup>
       </Section>
 
       {/* Food access */}
@@ -136,44 +120,44 @@ export default function HomePage() {
               title="Connecting communities with food resources"
               description="We work to connect communities with food resources and support initiatives that help address food insecurity."
             />
-            <ul className="mt-6 space-y-3">
+            <StaggerGroup as="ul" className="mt-6 space-y-3">
               {FOOD_ACTIVITIES.map((activity) => (
                 <CheckItem key={activity}>{activity}</CheckItem>
               ))}
-            </ul>
+            </StaggerGroup>
             <Button href="/what-we-do" variant="primary" className="mt-8">
               See our food access programs
             </Button>
           </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="aspect-square rounded-2xl bg-brand-cornflower" />
-            <div className="mt-8 aspect-square rounded-2xl bg-brand-sky" />
-            <div className="-mt-8 aspect-square rounded-2xl bg-brand-lake" />
-            <div className="aspect-square rounded-2xl bg-brand-sea" />
-          </div>
+          <StaggerGroup className="grid grid-cols-2 gap-4">
+            <StaggerItem className="aspect-square rounded-2xl bg-brand-cornflower" />
+            <StaggerItem className="mt-8 aspect-square rounded-2xl bg-brand-sky" />
+            <StaggerItem className="-mt-8 aspect-square rounded-2xl bg-brand-lake" />
+            <StaggerItem className="aspect-square rounded-2xl bg-brand-sea" />
+          </StaggerGroup>
         </div>
       </Section>
 
       {/* Mental health support */}
       <Section tone="white">
         <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
-          <div className="order-2 grid grid-cols-2 gap-4 lg:order-1">
-            <div className="aspect-square rounded-2xl bg-brand-sea" />
-            <div className="mt-8 aspect-square rounded-2xl bg-brand-lake" />
-            <div className="-mt-8 aspect-square rounded-2xl bg-brand-sky" />
-            <div className="aspect-square rounded-2xl bg-brand-cornflower" />
-          </div>
+          <StaggerGroup className="order-2 grid grid-cols-2 gap-4 lg:order-1">
+            <StaggerItem className="aspect-square rounded-2xl bg-brand-sea" />
+            <StaggerItem className="mt-8 aspect-square rounded-2xl bg-brand-lake" />
+            <StaggerItem className="-mt-8 aspect-square rounded-2xl bg-brand-sky" />
+            <StaggerItem className="aspect-square rounded-2xl bg-brand-cornflower" />
+          </StaggerGroup>
           <div className="order-1 lg:order-2">
             <SectionHeading
               eyebrow="Mental Health Support"
               title="Emotional wellness, education, and connection"
               description="We build awareness and access around mental health, so support feels within reach for everyone in our community."
             />
-            <ul className="mt-6 space-y-3">
+            <StaggerGroup as="ul" className="mt-6 space-y-3">
               {MENTAL_HEALTH_ACTIVITIES.map((activity) => (
                 <CheckItem key={activity}>{activity}</CheckItem>
               ))}
-            </ul>
+            </StaggerGroup>
             <Button href="/what-we-do" variant="primary" className="mt-8">
               See our mental health programs
             </Button>

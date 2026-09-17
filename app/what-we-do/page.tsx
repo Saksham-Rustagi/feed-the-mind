@@ -3,6 +3,7 @@ import PageHero from "@/components/ui/PageHero";
 import Section from "@/components/ui/Section";
 import Button from "@/components/ui/Button";
 import PlaceholderNotice from "@/components/ui/PlaceholderNotice";
+import { StaggerGroup, StaggerItem } from "@/components/motion/Stagger";
 
 const FOOD_PROGRAMS = [
   { title: "Food Drives", description: "Content coming soon — placeholder description of this program." },
@@ -49,14 +50,14 @@ export default function WhatWeDoPage() {
                 initiatives that help address food insecurity.
               </p>
             </div>
-            <ul className="space-y-4">
+            <StaggerGroup as="ul" className="space-y-4">
               {FOOD_PROGRAMS.map((program) => (
-                <li key={program.title} className="rounded-xl bg-brand-powder/20 p-4">
+                <StaggerItem as="li" key={program.title} className="rounded-xl bg-brand-powder/20 p-4">
                   <h3 className="text-base font-semibold text-brand-sea">{program.title}</h3>
                   <p className="mt-1 text-sm text-brand-sea/70">{program.description}</p>
-                </li>
+                </StaggerItem>
               ))}
-            </ul>
+            </StaggerGroup>
           </div>
 
           {/* Mental Health column */}
@@ -71,14 +72,14 @@ export default function WhatWeDoPage() {
                 support feels accessible to everyone in our community.
               </p>
             </div>
-            <ul className="space-y-4">
+            <StaggerGroup as="ul" className="space-y-4">
               {MENTAL_HEALTH_PROGRAMS.map((program) => (
-                <li key={program.title} className="rounded-xl bg-brand-powder/20 p-4">
+                <StaggerItem as="li" key={program.title} className="rounded-xl bg-brand-powder/20 p-4">
                   <h3 className="text-base font-semibold text-brand-sea">{program.title}</h3>
                   <p className="mt-1 text-sm text-brand-sea/70">{program.description}</p>
-                </li>
+                </StaggerItem>
               ))}
-            </ul>
+            </StaggerGroup>
           </div>
         </div>
       </Section>

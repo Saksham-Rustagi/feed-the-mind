@@ -5,6 +5,9 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import Button from "@/components/ui/Button";
 import PlaceholderNotice from "@/components/ui/PlaceholderNotice";
 import { DONATE_URL } from "@/lib/donate";
+import { StaggerGroup, StaggerItem } from "@/components/motion/Stagger";
+import AmountGrid from "@/components/donate/AmountGrid";
+import DonatePulse from "@/components/donate/DonatePulse";
 
 const AMOUNTS = ["$25", "$50", "$100", "$250"];
 
@@ -38,26 +41,13 @@ export default function DonatePage() {
             Choose an amount to get started, or enter your own on the next step.
           </p>
 
-          <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
-            {AMOUNTS.map((amount, i) => (
-              <a
-                key={amount}
-                href={DONATE_URL}
-                aria-label={`Donate ${amount}`}
-                className={`rounded-xl border-2 px-4 py-4 text-lg font-semibold transition-colors ${
-                  i === 1
-                    ? "border-brand-cornflower bg-brand-cornflower text-white"
-                    : "border-brand-lake/60 text-brand-sea hover:border-brand-cornflower"
-                }`}
-              >
-                {amount}
-              </a>
-            ))}
-          </div>
+          <AmountGrid amounts={AMOUNTS} donateUrl={DONATE_URL} />
 
-          <Button href={DONATE_URL} variant="primary" className="mt-8 w-full px-10 py-4 text-base sm:w-auto">
-            Donate Now
-          </Button>
+          <DonatePulse className="mt-8 block sm:inline-block">
+            <Button href={DONATE_URL} variant="primary" className="w-full px-10 py-4 text-base sm:w-auto">
+              Donate Now
+            </Button>
+          </DonatePulse>
 
           <p className="mt-4 text-xs text-brand-sea/50">
             Donate button placeholder — will link to our secure payment
@@ -69,14 +59,14 @@ export default function DonatePage() {
       {/* Where it goes */}
       <Section tone="powder">
         <SectionHeading eyebrow="Your Impact" title="Where your donation goes" align="center" />
-        <div className="mx-auto mt-10 grid max-w-4xl grid-cols-1 gap-6 sm:grid-cols-3">
+        <StaggerGroup className="mx-auto mt-10 grid max-w-4xl grid-cols-1 gap-6 sm:grid-cols-3">
           {IMPACT.map((item) => (
-            <div key={item.title} className="rounded-2xl bg-white p-6 text-center shadow-sm">
+            <StaggerItem key={item.title} className="rounded-2xl bg-white p-6 text-center shadow-sm">
               <h3 className="text-lg font-semibold text-brand-sea">{item.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-brand-sea/70">{item.description}</p>
-            </div>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerGroup>
       </Section>
 
       {/* Other ways to give */}

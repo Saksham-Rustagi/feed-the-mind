@@ -5,6 +5,7 @@ import PageHero from "@/components/ui/PageHero";
 import PlaceholderNotice from "@/components/ui/PlaceholderNotice";
 import PlaceholderImage from "@/components/ui/PlaceholderImage";
 import Card from "@/components/ui/Card";
+import { StaggerGroup, StaggerItem } from "@/components/motion/Stagger";
 
 const VALUES = [
   { title: "Dignity", description: "Content coming soon — placeholder description of this core value." },
@@ -59,22 +60,24 @@ export default function AboutUsPage() {
       {/* Our values */}
       <Section tone="powder">
         <SectionHeading eyebrow="Our Values" title="What guides our work" align="center" />
-        <div className="mx-auto mt-10 grid max-w-5xl grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <StaggerGroup className="mx-auto mt-10 grid max-w-5xl grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {VALUES.map((value) => (
-            <Card key={value.title}>
-              <h3 className="text-lg font-semibold text-brand-sea">{value.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-brand-sea/70">{value.description}</p>
-            </Card>
+            <StaggerItem key={value.title}>
+              <Card>
+                <h3 className="text-lg font-semibold text-brand-sea">{value.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-brand-sea/70">{value.description}</p>
+              </Card>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerGroup>
       </Section>
 
       {/* Our team */}
       <Section tone="white">
         <SectionHeading eyebrow="Our Team" title="The people behind Feed the Mind" align="center" />
-        <div className="mx-auto mt-10 grid max-w-5xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <StaggerGroup className="mx-auto mt-10 grid max-w-5xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {TEAM.map((member) => (
-            <div key={member.role} className="text-center">
+            <StaggerItem key={member.role} className="text-center">
               <div className="mx-auto flex h-28 w-28 items-center justify-center rounded-full bg-brand-cornflower/90 text-white">
                 <svg viewBox="0 0 24 24" className="h-12 w-12" fill="currentColor">
                   <path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-4.42 0-8 2.24-8 5v2h16v-2c0-2.76-3.58-5-8-5z" />
@@ -82,9 +85,9 @@ export default function AboutUsPage() {
               </div>
               <h3 className="mt-4 text-base font-semibold text-brand-sea">{member.name}</h3>
               <p className="text-sm text-brand-sea/60">{member.role}</p>
-            </div>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerGroup>
       </Section>
     </>
   );
